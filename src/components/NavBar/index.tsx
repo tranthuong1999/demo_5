@@ -14,12 +14,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetCategoryWork } from '../../redux/actions';
 import BasicPopover from '../Popover';
 import { data, data_1 } from './data';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const NavBarPage = () => {
     const [userScroll, setUserScroll] = useState(false);
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down(600));
-    const isTabnet = useMediaQuery(theme.breakpoints.between(600, 1024));
+    const isMobile = useMediaQuery(theme.breakpoints.down(800));
+    const isTabnet = useMediaQuery(theme.breakpoints.between(800, 1024));
+    const isComputer = useMediaQuery(theme.breakpoints.up(1024));
     const listWorkCategory: any = useSelector((state: any) => state.listWorkCategory);
     const dispatch = useDispatch();
     const [anchoAddress, setAnchoAddress] = useState<null | any>()
@@ -102,9 +104,16 @@ export const NavBarPage = () => {
                 }
             </Swiper>
             <div className={classNames('block-1', (isMobile || isTabnet) ? "block-1-small" : "", userScroll ? "block-1-scroll" : "")}>
-                <div className='child-1'>
+                <div className={classNames('child-1', isTabnet ? "child-1-tabnet" : "", isMobile ? 'child-1-mobile' : "")}>
                     <div className='img-logo'>
-                        <div>{svg_logo(!userScroll ? "#fff" : "black")} </div>
+                        <div>
+                            <span style={{ marginRight: "20px", marginLeft: "20px" }}>
+                                {
+                                    !isComputer && <MenuIcon />
+                                }
+                            </span>
+                            {svg_logo(!userScroll ? "#fff" : "black")}
+                        </div>
                         {
                             userScroll &&
                             <div className='search'>
@@ -114,17 +123,22 @@ export const NavBarPage = () => {
                         }
                     </div>
                     <div className='list-button'>
-                        <button className='btn-active'> Fiverr Business</button>
-                        <button> Explore</button>
-                        <button style={{ display: "flex", alignItems: "center", gap: "8px" }}><LanguageIcon /> English</button>
-                        <button> US$ USD</button>
-                        <button> Become a Seller</button>
-                        <button> Sign in</button>
-                        <button className='btn-join'> Join</button>
+                        {
+                            (isComputer) &&
+                            <>
+                                <button className='btn-active'> Fiverr Business</button>
+                                <button> Explore</button>
+                                <button style={{ display: "flex", alignItems: "center", gap: "8px" }}><LanguageIcon /> English</button>
+                                <button> US$ USD</button>
+                                <button> Become a Seller</button>
+                                <button> Sign in</button>
+                                <button className='btn-join'> Join</button>
+                            </>
+                        }
                     </div>
                 </div>
                 {userScroll &&
-                    <div className='child-2' onMouseLeave={() => handleMouseLeave()} >
+                    <div className={classNames('child-2', isTabnet ? "child-2-tabnet" : "", isMobile ? 'child-2-mobile' : "")}>
                         {
                             listWorkCategory?.content?.map((item: any) => {
                                 return (
@@ -140,7 +154,7 @@ export const NavBarPage = () => {
                     </div>}
             </div>
 
-            <div className='block-2'>
+            <div className={classNames("block-2", isMobile ? 'block-2-mobile' : "")}>
                 <h1 className='title-header'>Find the perfect freelance services for your business</h1>
                 <div className='input-search'>
                     <input type="search" placeholder='Try "Building mobile app' />
