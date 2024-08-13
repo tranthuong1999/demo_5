@@ -3,6 +3,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 0 100px;
+    overflow: hidden;
 
     &-small {
         padding: 0 20px;
@@ -137,7 +138,8 @@
                     background-color: #8080804f;
                 }
             }
-            .icon_human{
+
+            .icon_human {
                 border: 1px solid grey;
                 width: 40px;
                 height: 40px;

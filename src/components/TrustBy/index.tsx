@@ -37,7 +37,7 @@ const TrustByPage = () => {
                     {
                         data.slice(start, end).map((item, index) => {
                             return (
-                                <div className='item-image'>
+                                <div className='item-image' key={index}>
                                     <img src={item} />
                                 </div>
                             )

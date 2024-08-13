@@ -42,9 +42,9 @@ const IntroducePage = () => {
                 <h1 className='title'>A whole world of freelance talent at your fingertips</h1>
                 <div className='list-desc'>
                     {
-                        data.map((item) => {
+                        data.map((item, index) => {
                             return (
-                                <div className='item-desc'>
+                                <div className='item-desc' key={index}>
                                     <h4 className='title-mess'><CheckCircleOutlineIcon /> {item.title}</h4>
                                     <p> {item.desc}</p>
                                 </div>

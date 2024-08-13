@@ -55,9 +55,9 @@ const MarketPage = () => {
                     }}
                 >
                     {
-                        data.map((item) => {
+                        data.map((item, index) => {
                             return (
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <div className={classNames("item-image", isTabnet ? "item-image-tabnet" : "")}>
                                         <div className='img-logo' onClick={() => setVideo(item.video)}>
                                             <img src={item.image} />
@@ -87,7 +87,7 @@ const MarketPage = () => {
                     {
                         [svg_1, svg_2, svg_3, svg_4, svg_5, svg_6, svg_7, svg_8, svg_9].map((item, index) => {
                             return (
-                                <div className='item-icon'>
+                                <div className='item-icon' key={index}>
                                     <div className='icon-svg'>
                                         {item()}
                                     </div>

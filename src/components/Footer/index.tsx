@@ -21,9 +21,9 @@ const FooterPage = () => {
             <div className='block-1'>
                 <div className={classNames('list-item-footer', isMobile ? 'list-item-footer-mobile' : "", isTabnet ? 'list-item-footer-tabnet' : "")}>
                     {
-                        data.map((item) => {
+                        data.map((item, index) => {
                             return (
-                                <div className='item-footer'>
+                                <div className='item-footer' key={index}>
                                     <p className='title-footer'> {item.title}</p>
                                     <div className='mem'>
                                         {item.items.map((mem) => {
