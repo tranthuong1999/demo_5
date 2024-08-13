@@ -43,18 +43,20 @@
                 padding: 0 100px;
                 transition: 0.4s;
                 margin-bottom: 4px;
-               .btn-action{
-                transition: 0.4s;
-                font-size: 16px;
-                color: #62646a;
-                line-height: 24px;
-                padding: 15px;
-                border-bottom: 4px solid transparent;
-                &:hover{
-                    cursor: pointer;
-                    border-bottom: 4px solid #1dbf73;
+
+                .btn-action {
+                    transition: 0.4s;
+                    font-size: 16px;
+                    color: #62646a;
+                    line-height: 24px;
+                    padding: 15px;
+                    border-bottom: 4px solid transparent;
+
+                    &:hover {
+                        cursor: pointer;
+                        border-bottom: 4px solid #1dbf73;
+                    }
                 }
-               }
             }
 
 
@@ -249,4 +251,30 @@
         }
     }
 
+}
+
+.list-item-popover {
+    padding: 10px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .group {
+        color: #404145;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .item-child {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .child {
+            &:hover {
+                cursor: pointer;
+                color: green;
+            }
+        }
+    }
 }

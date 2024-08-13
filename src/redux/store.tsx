@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import todoReducer from './reducer';
 import rootSaga from './ sagas';
+import workReducer from './reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-    todoReducer,
+    workReducer,
     applyMiddleware(sagaMiddleware)
 );
 

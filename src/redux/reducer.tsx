@@ -1,33 +1,25 @@
-import { ADD_TODO, REMOVE_TODO, SET_TODOS, TodoActionTypes, Todo } from './actions';
 
-export interface TodoState {
-    todos: Todo[];
+import { FETCH_MENU_CATEGORY_WORK, FETCH_MENU_CATEGORY_WORK_SUCCESS } from "./actions";
+
+export interface WorkState {
+    listWorkCategory: any[];
 }
 
-const initialState: TodoState = {
-    todos: [],
+const initialState: WorkState = {
+    listWorkCategory: [],
 };
 
-const todoReducer = (state = initialState, action: TodoActionTypes): TodoState => {
+const workReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case ADD_TODO:
+        case FETCH_MENU_CATEGORY_WORK_SUCCESS:
             return {
                 ...state,
-                todos: [...state.todos, action.payload],
-            };
-        case REMOVE_TODO:
-            return {
-                ...state,
-                todos: state.todos.filter((todo) => todo.id !== action.payload),
-            };
-        case SET_TODOS:
-            return {
-                ...state,
-                todos: action.payload,
+                listWorkCategory: action.payload,
             };
         default:
             return state;
     }
-};
+}
 
-export default todoReducer;
+export default workReducer;
+

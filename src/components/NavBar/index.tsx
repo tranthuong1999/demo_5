@@ -10,21 +10,25 @@ import classNames from 'classnames';
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import LanguageIcon from '@mui/icons-material/Language';
-
-const data = [
-    "https://demo5.cybersoft.edu.vn/img/1.png",
-    "https://demo5.cybersoft.edu.vn/img/2.png",
-    "https://demo5.cybersoft.edu.vn/img/3.png",
-    "https://demo5.cybersoft.edu.vn/img/4.png",
-    "https://demo5.cybersoft.edu.vn/img/5.png",
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { fetCategoryWork } from '../../redux/actions';
+import BasicPopover from '../Popover';
+import { data, data_1 } from './data';
 
 export const NavBarPage = () => {
     const [userScroll, setUserScroll] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down(600));
     const isTabnet = useMediaQuery(theme.breakpoints.between(600, 1024));
+    const listWorkCategory: any = useSelector((state: any) => state.listWorkCategory);
+    const dispatch = useDispatch();
+    const [anchoAddress, setAnchoAddress] = useState<null | any>()
+    const [currentItem, setCurrentItem] = useState<string | any>('');
 
+
+    useEffect(() => {
+        dispatch(fetCategoryWork())
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -40,6 +44,40 @@ export const NavBarPage = () => {
         };
     }, []);
 
+
+    const handleMouseEnter = (item: any, event: any) => {
+        setAnchoAddress(event.currentTarget);
+        setCurrentItem(item)
+    };
+
+    const handleMouseLeave = () => {
+        setAnchoAddress(null)
+        setCurrentItem("")
+    };
+
+    const renderContent = () => {
+        return (
+            <div onMouseLeave={() => handleMouseLeave()}>
+                {currentItem?.dsNhomChiTietLoai.map((item: any) => {
+                    return (
+                        <div
+                            className='list-item-popover'
+                        >
+                            <h3 className='group'> {item.tenNhom}</h3>
+                            <div className='item-child'>
+                                {item.dsChiTietLoai.map((mem: any) => {
+                                    return (
+                                        <div className='child'>{mem.tenChiTiet}</div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
+
     return (
         <div className='nav-bar-page'>
             <Swiper
@@ -47,7 +85,7 @@ export const NavBarPage = () => {
                 loop={true}
                 slidesPerView={1}
                 centeredSlides={true}
-                modules={[Autoplay]}
+                // modules={[Autoplay]}
                 autoplay={{
                     delay: 2000,
                     disableOnInteraction: false,
@@ -86,13 +124,19 @@ export const NavBarPage = () => {
                     </div>
                 </div>
                 {userScroll &&
-                    <div className='child-2'>
-                        <div className='btn-action'>Graphics & Design </div>
-                        <div className='btn-action'>Digital Marketing </div>
-                        <div className='btn-action'>Writing & Translation </div>
-                        <div className='btn-action'>Video & Animation </div>
-                        <div className='btn-action'>Music & Audio </div>
-                        <div className='btn-action'>Canvas Ultimate </div>
+                    <div className='child-2' onMouseLeave={() => handleMouseLeave()} >
+                        {
+                            listWorkCategory?.content?.map((item: any) => {
+                                return (
+                                    <div
+                                        className='btn-action'
+                                        onMouseEnter={(event) => handleMouseEnter(item, event)}
+                                    >
+                                        {item?.tenLoaiCongViec}
+                                    </div>
+                                )
+                            })
+                        }
                     </div>}
             </div>
 
@@ -112,6 +156,15 @@ export const NavBarPage = () => {
                     <div className='btn'> Video Editing</div>
                 </div>
             </div>
+            {
+                Boolean(anchoAddress) &&
+                <BasicPopover
+                    open={Boolean(anchoAddress)}
+                    onClose={() => setAnchoAddress(null)}
+                    anchorEl={anchoAddress}
+                    content={renderContent()}
+                />
+            }
         </div>
     )
 }
