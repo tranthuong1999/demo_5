@@ -87,9 +87,9 @@ export const NavBarPage = () => {
                 loop={true}
                 slidesPerView={1}
                 centeredSlides={true}
-                // modules={[Autoplay]}
+                modules={[Autoplay]}
                 autoplay={{
-                    delay: 2000,
+                    delay: 5000,
                     disableOnInteraction: false,
                 }}
             >
