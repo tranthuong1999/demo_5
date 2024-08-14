@@ -1,10 +1,14 @@
-import React from 'react';
-import "./style.scss";
+import Drawer from '@mui/material/Drawer';
+import "./style.scss"
 
-const DrawerPage = () => {
-  return (
-    <div>DrawerPage</div>
-  )
+
+function DrawerCommon(props: { open: boolean, onClose: () => void, content?: any, className?: string }) {
+    const { open, onClose, content, className } = props;
+
+    return (
+        <Drawer open={open} onClose={onClose} classes={{ root: className }} >
+            {content}
+        </Drawer>
+    );
 }
-
-export default DrawerPage
+export default DrawerCommon;

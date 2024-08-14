@@ -13,8 +13,11 @@ import LanguageIcon from '@mui/icons-material/Language';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetCategoryWork } from '../../redux/actions';
 import BasicPopover from '../Popover';
-import { data, data_1 } from './data';
+import { data } from './data';
 import MenuIcon from '@mui/icons-material/Menu';
+import DrawerCommon from '../Drawer';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export const NavBarPage = () => {
     const [userScroll, setUserScroll] = useState(false);
@@ -26,6 +29,7 @@ export const NavBarPage = () => {
     const dispatch = useDispatch();
     const [anchoAddress, setAnchoAddress] = useState<null | any>()
     const [currentItem, setCurrentItem] = useState<string | any>('');
+    const [openDrawer, setOpenDrawer] = useState(false);
 
 
     useEffect(() => {
@@ -80,6 +84,38 @@ export const NavBarPage = () => {
         )
     }
 
+    const renderContenDrawer = () => {
+        return (
+            <div className='list-button-navbar'>
+                <div className="block-1">
+                    <div className='btn-sign-in'>
+                        <button> Sign in</button>
+                        <p onClick={() => setOpenDrawer(false)}><CloseIcon /></p>
+                    </div>
+                    <div className='btn-button btn-button-active'>
+                        <button>Fiverr Pro</button>
+                    </div>
+                    <div className='btn-button'>
+                        <button>Explore</button>
+                    </div>
+                    <div className='btn-button'>
+                        <button>Messages</button>
+                    </div>
+                    <div className='btn-button'>
+                        <button>Lists</button>
+                    </div>
+                    <div className='btn-button'>
+                        <button>Orders</button>
+                    </div>
+                    <div className='btn-button btn-source'>
+                        <button>Help & Resoources</button>
+                        <ArrowDropDownIcon className='icon-arrow' />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className='nav-bar-page'>
             <Swiper
@@ -107,7 +143,7 @@ export const NavBarPage = () => {
                 <div className={classNames('child-1', isTabnet ? "child-1-tabnet" : "", isMobile ? 'child-1-mobile' : "")}>
                     <div className='img-logo'>
                         <div>
-                            <span style={{ marginRight: "20px", marginLeft: "20px" }}>
+                            <span onClick={() => setOpenDrawer(!openDrawer)}>
                                 {
                                     !isComputer && <MenuIcon />
                                 }
@@ -177,6 +213,15 @@ export const NavBarPage = () => {
                     onClose={() => setAnchoAddress(null)}
                     anchorEl={anchoAddress}
                     content={renderContent()}
+                />
+            }
+            {
+                openDrawer &&
+                < DrawerCommon
+                    open={openDrawer}
+                    onClose={() => setOpenDrawer(false)}
+                    content={renderContenDrawer()}
+                    className='drawer-menu-bar'
                 />
             }
         </div>

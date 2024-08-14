@@ -48,10 +48,12 @@
                 .img-logo {
                     flex-direction: column;
                     align-items: flex-start;
-                    input{
+
+                    input {
                         margin-left: 20px;
                         min-width: 350px;
                     }
+
                     .search {
                         button {
                             opacity: 0;
@@ -64,7 +66,7 @@
 
         &-scroll {
             position: fixed;
-            z-index: 1000000;
+            z-index: 1000;
             background-color: #fff;
 
             .child-1 {
@@ -135,6 +137,14 @@
             display: flex;
             gap: 20px;
             align-items: center;
+
+            span {
+                margin: 0 20px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
 
             .search {
 
@@ -210,7 +220,22 @@
         max-width: 655px;
 
         &-mobile {
-            display: none;
+            .title-header{
+                font-size: 24px !important;
+            }
+            .input-search{
+                width: 70% !important;
+                input{
+                    &::placeholder{
+                        font-size: 12px !important;
+                    }
+                }  
+            }
+            .list-item{
+                flex-direction: column !important;
+                gap: 10px !important;
+                align-items: baseline !important;
+            }
         }
 
         .title-header {
