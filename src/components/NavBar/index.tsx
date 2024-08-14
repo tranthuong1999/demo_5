@@ -18,6 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DrawerCommon from '../Drawer';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const NavBarPage = () => {
     const [userScroll, setUserScroll] = useState(false);
@@ -30,6 +31,9 @@ export const NavBarPage = () => {
     const [anchoAddress, setAnchoAddress] = useState<null | any>()
     const [currentItem, setCurrentItem] = useState<string | any>('');
     const [openDrawer, setOpenDrawer] = useState(false);
+    const location = useLocation();
+    const current_url = location.pathname;
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -63,7 +67,7 @@ export const NavBarPage = () => {
 
     const renderContent = () => {
         return (
-            <div onMouseLeave={() => handleMouseLeave()}>
+            <div>
                 {currentItem?.dsNhomChiTietLoai.map((item: any) => {
                     return (
                         <div
@@ -116,10 +120,11 @@ export const NavBarPage = () => {
         )
     }
 
+
     return (
-        <div className='nav-bar-page'>
+        <div className={classNames('nav-bar-page', current_url !== "/" ? "nav-bar-page-second" : "")}>
             <Swiper
-                className="swiper-nav-bar"
+                className={classNames("swiper-nav-bar", current_url !== "/" ? "swiper-nav-bar-second" : "")}
                 loop={true}
                 slidesPerView={1}
                 centeredSlides={true}
@@ -139,7 +144,7 @@ export const NavBarPage = () => {
                     })
                 }
             </Swiper>
-            <div className={classNames('block-1', (isMobile || isTabnet) ? "block-1-small" : "", userScroll ? "block-1-scroll" : "")}>
+            <div className={classNames('block-1', (isMobile || isTabnet) ? "block-1-small" : "", (userScroll || current_url !== "/") ? "block-1-scroll" : "")}>
                 <div className={classNames('child-1', isTabnet ? "child-1-tabnet" : "", isMobile ? 'child-1-mobile' : "")}>
                     <div className='img-logo'>
                         <div>
@@ -148,10 +153,10 @@ export const NavBarPage = () => {
                                     !isComputer && <MenuIcon />
                                 }
                             </span>
-                            {svg_logo(!userScroll ? "#fff" : "black")}
+                            {svg_logo((userScroll || current_url !== "/") ? "black" : "#fff")}
                         </div>
                         {
-                            userScroll &&
+                            (userScroll || current_url !== "/") &&
                             <div className='search'>
                                 <input placeholder='Find Service' />
                                 <button>Search</button>
@@ -167,13 +172,13 @@ export const NavBarPage = () => {
                                 <button style={{ display: "flex", alignItems: "center", gap: "8px" }}><LanguageIcon /> English</button>
                                 <button> US$ USD</button>
                                 <button> Become a Seller</button>
-                                <button> Sign in</button>
-                                <button className='btn-join'> Join</button>
+                                <button onClick={() => navigate("/login")}> Sign in</button>
+                                <button onClick={() => navigate("/register")} className='btn-join'> Join</button>
                             </>
                         }
                     </div>
                 </div>
-                {userScroll &&
+                {(userScroll || current_url !== "/") &&
                     <div className={classNames('child-2', isTabnet ? "child-2-tabnet" : "", isMobile ? 'child-2-mobile' : "")}>
                         {
                             listWorkCategory?.content?.map((item: any) => {
@@ -181,6 +186,7 @@ export const NavBarPage = () => {
                                     <div
                                         className='btn-action'
                                         onMouseEnter={(event) => handleMouseEnter(item, event)}
+                                    // onMouseLeave={() => handleMouseLeave()}
                                     >
                                         {item?.tenLoaiCongViec}
                                     </div>
@@ -190,7 +196,7 @@ export const NavBarPage = () => {
                     </div>}
             </div>
 
-            <div className={classNames("block-2", isMobile ? 'block-2-mobile' : "")}>
+            {current_url == "/" && <div className={classNames("block-2", isMobile ? 'block-2-mobile' : "")}>
                 <h1 className='title-header'>Find the perfect freelance services for your business</h1>
                 <div className='input-search'>
                     <input type="search" placeholder='Try "Building mobile app' />
@@ -205,7 +211,7 @@ export const NavBarPage = () => {
                     <div className='btn'> Logo Design</div>
                     <div className='btn'> Video Editing</div>
                 </div>
-            </div>
+            </div>}
             {
                 Boolean(anchoAddress) &&
                 <BasicPopover

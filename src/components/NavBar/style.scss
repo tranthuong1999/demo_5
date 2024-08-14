@@ -2,10 +2,18 @@
     height: 700px;
     position: relative;
     overflow: hidden;
+    &-second{
+        height: 170px;
+    }
 
     .swiper-nav-bar {
         width: 100%;
         height: 100%;
+
+        &-second {
+            display: none;
+
+        }
 
         img {
             width: 100%;
@@ -172,7 +180,7 @@
                 }
 
                 button {
-                    background-color: green !important;
+                    background-color: #1dbf73 !important;
                     color: #fff !important;
                     border: none;
                     padding: 12px;
@@ -220,18 +228,21 @@
         max-width: 655px;
 
         &-mobile {
-            .title-header{
+            .title-header {
                 font-size: 24px !important;
             }
-            .input-search{
+
+            .input-search {
                 width: 70% !important;
-                input{
-                    &::placeholder{
+
+                input {
+                    &::placeholder {
                         font-size: 12px !important;
                     }
-                }  
+                }
             }
-            .list-item{
+
+            .list-item {
                 flex-direction: column !important;
                 gap: 10px !important;
                 align-items: baseline !important;
